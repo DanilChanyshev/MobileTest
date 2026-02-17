@@ -1,0 +1,20 @@
+services:
+  wiremock:
+    container_name: wiremock
+    image: wiremock/wiremock:3.13.2
+    volumes:
+      - ./wiremock:/home/wiremock:ro
+
+  android-1:
+    container_name: android
+    depends_on:
+      - wiremock
+    image: budtmo/docker-android:emulator_12.0_v3.1.1-p0
+    ports:
+      - 6080:6080
+      - 4723:4723
+    environment:
+      - WEB_VNC=true
+      - APPIUM=true
+    devices:
+      - "/dev/kvm"
