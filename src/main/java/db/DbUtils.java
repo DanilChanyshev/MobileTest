@@ -4,6 +4,7 @@ import static java.sql.DriverManager.getConnection;
 
 import jakarta.inject.Singleton;
 import lombok.SneakyThrows;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.UUID;
@@ -19,6 +20,21 @@ public class DbUtils {
   public UUID resetWishListForUser(String login, String description) {
     try (Connection conn = getConnection(dbUrl, dbUser, dbPass)) {
       conn.setAutoCommit(false);
+
+      String deleteGiftsSql =
+            """
+            DELETE FROM gifts
+            WHERE wish_id IN (
+                SELECT id FROM wishlists
+                WHERE user_id IN (
+                    SELECT id FROM users WHERE username = ?
+                )
+            )
+            """;
+      try (PreparedStatement ps = conn.prepareStatement(deleteGiftsSql)) {
+        ps.setString(1, login);
+        ps.executeUpdate();
+      }
 
       String deleteSql =
             """
@@ -56,44 +72,24 @@ public class DbUtils {
     }
   }
 
-
   @SneakyThrows
-  public void resetGiftForUser(String login, String description) {
+  public void resetGiftForUser(String login, UUID wishlistID, String price, String description) {
     try (Connection conn = getConnection(dbUrl, dbUser, dbPass)) {
       conn.setAutoCommit(false);
 
-      String deleteSql =
-          """
-             DELETE FROM gifts
-             WHERE wish_id IN (
-                 SELECT id FROM wishlists
-                 WHERE user_id IN (
-                     SELECT id FROM users WHERE username = ?
-                 )
-             )
-          """;
-
-      try (PreparedStatement ps = conn.prepareStatement(deleteSql)) {
-        ps.setString(1, login);
-        ps.executeUpdate();
-      }
-
       String insertSql =
-          """
-          INSERT INTO wishlists (id, user_id, description, title)
-          SELECT ?::uuid, id, ?, ?
-          FROM users
-          WHERE username = ?
-          """;
+            """
+            INSERT INTO gifts (id, name, price, wish_id)
+            VALUES (?::uuid, ?,  ?, ?::uuid)
+            """;
 
       try (PreparedStatement ps = conn.prepareStatement(insertSql)) {
-        ps.setString(1, java.util.UUID.randomUUID().toString());
-        ps.setString(2, description);
-        ps.setString(3, description);
-        ps.setString(4, login);
+        ps.setObject(1, java.util.UUID.randomUUID());
+        ps.setString(2, "testing");
+        ps.setBigDecimal(3, new BigDecimal(1500));
+        ps.setObject(4, wishlistID);
         ps.executeUpdate();
       }
-
       conn.commit();
     }
   }

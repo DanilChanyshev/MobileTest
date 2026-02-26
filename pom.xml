@@ -26,8 +26,8 @@
         <base.url>http://127.0.0.1:%d/</base.url>
         <base.apk>http://wiremock:8080/wishlist.apk</base.apk>
         <db.url>jdbc:postgresql://sql.otus.kartushin.su:5432/wishlist</db.url>
-        <db.user>student</db.user>
-        <db.password>student</db.password>
+        <db.user></db.user>
+        <db.password></db.password>
     </properties>
 
     <dependencies>

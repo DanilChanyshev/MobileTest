@@ -38,14 +38,30 @@ public class GiftsPage extends AbsBasePage {
     getGiftItem(index).assertTitleEqualsTo(expectedTitle);
     return this;
   }
+
   public GiftsPage assertGiftSubtitle(int index, String expectedSubtitle) {
     getGiftItem(index).assertSubtitleEqualsTo(expectedSubtitle);
+    return this;
+  }
+
+  public GiftsPage assertGiftPrice(int index, String expectedPrice) {
+    getGiftItem(index).assertPriceEqualsTo(expectedPrice);
     return this;
   }
 
   public EditGiftPage clickEditButton(int index) {
     getGiftItem(index).clickEdit();
     return editGiftPage;
+  }
+
+  public GiftsPage switchStatusGift(int index) {
+    getGiftItem(index).switchStatusItemEnable();
+    return this;
+  }
+
+  public GiftsPage switchStatusGiftFalse(int index) {
+    getGiftItem(index).switchStatusItemDisable();
+    return this;
   }
 
   private Giftitem getGiftItem(int index) {

@@ -31,9 +31,9 @@ public class CreateAndEditWishListTest {
     final String editTitle = "Ждем следующий год";
     final String editDescription = "остлалось 300 дней";
 
-    dbUtils.resetWishListForUser(UsersLogin.SLOWBROO.getUsername(), "testingData");
+    dbUtils.resetWishListForUser(UsersLogin.TONIP.getUsername(), "testingData");
     loginPage
-        .login(UsersLogin.SLOWBROO.getUsername(), UsersLogin.SLOWBROO.getPassword())
+        .login(UsersLogin.TONIP.getUsername(), UsersLogin.TONIP.getPassword())
         .assertWishListTitle(1, "testingData")
         .assertWishListSubtitle(1, "testingData")
         .clickEditButton(1)

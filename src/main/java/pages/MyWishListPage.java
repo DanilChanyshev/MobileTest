@@ -47,6 +47,7 @@ public class MyWishListPage extends AbsBasePage{
     getWishListItem(index).assertTitleEqualsTo(expectedTitle);
     return this;
   }
+
   public MyWishListPage assertWishListSubtitle(int index, String expectedSubtitle) {
     getWishListItem(index).assertSubtitleEqualsTo(expectedSubtitle);
     return this;
