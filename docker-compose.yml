@@ -11,8 +11,8 @@ services:
       - wiremock
     image: budtmo/docker-android:emulator_12.0_v3.1.1-p0
     ports:
-      - 6080:6080
-      - 4723:4723
+      - "6080:6080"
+      - "4723:4723"
     environment:
       - WEB_VNC=true
       - APPIUM=true

@@ -23,7 +23,7 @@ public class AndroidExtension implements
   @Override
   public void afterEach(ExtensionContext extensionContext) throws Exception {
     WebDriver driver = WebDriverRunner.getWebDriver();
-    inject.getInstance(AndroidDriverFactory.class).quid(driver);
+    inject.getInstance(AndroidDriverFactory.class).quit(driver);
   }
 
   @Override

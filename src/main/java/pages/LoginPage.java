@@ -1,23 +1,24 @@
 package pages;
 
-import com.codeborne.selenide.SelenideElement;
-import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
-import org.openqa.selenium.By;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.appium.SelenideAppium.$;
+import static io.appium.java_client.AppiumBy.id;
+
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
+import com.codeborne.selenide.SelenideElement;
 
 @Singleton
 public class LoginPage extends AbsBasePage {
 
   @Inject
-  MyWidhListPage myWidhListPage;
+  private MyWishListPage myWishListPage;
 
-  private final SelenideElement userNameInputField = $(By.id("ru.otus.wishlist:id/username_text_input"));
-  private final SelenideElement passwordInputField = $(By.id("ru.otus.wishlist:id/password_text_input"));
-  private final SelenideElement buttonLogin = $(By.id("ru.otus.wishlist:id/log_in_button"));
+  private final SelenideElement userNameInputField = $(id("ru.otus.wishlist:id/username_text_input"));
+  private final SelenideElement passwordInputField = $(id("ru.otus.wishlist:id/password_text_input"));
+  private final SelenideElement buttonLogin = $(id("ru.otus.wishlist:id/log_in_button"));
 
-  public MyWidhListPage login(String userName, String password) {
+  public MyWishListPage login(String userName, String password) {
     userNameInputField
         .shouldBe(visible)
         .sendKeys(userName);
@@ -27,7 +28,7 @@ public class LoginPage extends AbsBasePage {
     buttonLogin
         .shouldBe(visible)
         .click();
-    myWidhListPage.checkOpenPage();
-    return myWidhListPage;
+    myWishListPage.checkOpenPage();
+    return myWishListPage;
   }
 }

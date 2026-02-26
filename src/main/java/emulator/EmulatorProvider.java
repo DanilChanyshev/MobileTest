@@ -2,19 +2,13 @@ package emulator;
 
 import jakarta.inject.Singleton;
 import lombok.SneakyThrows;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.concurrent.*;
 
 @Singleton
-public class EmulatorProvide {
+public class EmulatorProvider {
 
-  private final BlockingQueue<Emulator> emulators;
-
-  {
-    emulators = new ArrayBlockingQueue<>(Emulator.values().length);
-    Collections.addAll(emulators, Emulator.values());
-  }
-
+  private final BlockingQueue<Emulator> emulators  = new ArrayBlockingQueue<>(Emulator.values().length, false, Arrays.asList(Emulator.values()));
   private final ThreadLocal<Emulator> currentEmulator = new ThreadLocal<>();
 
   @SneakyThrows

@@ -17,17 +17,17 @@
         <junit.version>5.10.0</junit.version>
         <guice.version>7.0.0</guice.version>
         <selenide-appium.version>7.14.0</selenide-appium.version>
-        <assertj.version>3.27.6</assertj.version>
         <surefire-plugin.version>3.5.3</surefire-plugin.version>
-        <lombok.version>1.18.36</lombok.version>
+        <lombok.version>1.18.42</lombok.version>
         <logback-classic>1.4.11</logback-classic>
-        <checkstyle.plagin>3.3.1</checkstyle.plagin>
+        <checkstyle.plugin >3.3.1</checkstyle.plugin >
         <spotbugs.version>4.8.6.0</spotbugs.version>
-        <findbugs.version>3.0.5</findbugs.version>
 
         <base.url>http://127.0.0.1:%d/</base.url>
-        <browser.name>chrome</browser.name>
         <base.apk>http://wiremock:8080/wishlist.apk</base.apk>
+        <db.url>jdbc:postgresql://sql.otus.kartushin.su:5432/wishlist</db.url>
+        <db.user>student</db.user>
+        <db.password>student</db.password>
     </properties>
 
     <dependencies>
@@ -47,11 +47,6 @@
             <version>${selenide-appium.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>${assertj.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
@@ -60,6 +55,11 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback-classic}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.10</version>
         </dependency>
     </dependencies>
 
@@ -81,15 +81,17 @@
                 <configuration>
                     <systemPropertyVariables>
                         <base.url>${base.url}</base.url>
-                        <browser.name>${browser.name}</browser.name>
                         <base.apk>${base.apk}</base.apk>
+                        <db.url>${db.url}</db.url>
+                        <db.user>${db.user}</db.user>
+                        <db.password>${db.password}</db.password>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${checkstyle.plagin}</version>
+                <version>${checkstyle.plugin}</version>
                 <configuration>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
                     <configLocation>${project.build.sourceDirectory}/../resources/checkstyle.xml</configLocation>
@@ -112,6 +114,7 @@
                     <effort>Max</effort>
                     <threshold>Medium</threshold>
                     <failOnError>true</failOnError>
+                    <excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>
                 </configuration>
                 <executions>
                     <execution>
