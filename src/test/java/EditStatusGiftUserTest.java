@@ -1,3 +1,4 @@
+import db.DbUtils;
 import extension.AndroidExtension;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
@@ -10,9 +11,12 @@ public class EditStatusGiftUserTest {
 
   @Inject
   private LoginPage loginPage;
+  @Inject
+  private DbUtils dbUtils;
 
   @Test
   public void editStatusGiftTest() {
+    dbUtils.resetGiftStatusForUser(UsersLogin.SIMPLE.getUsername(), false, "testingData");
     loginPage
         .login(UsersLogin.USER_EDITOR.getUsername(), UsersLogin.USER_EDITOR.getPassword())
         .clickButtonUserMenu()
@@ -22,7 +26,6 @@ public class EditStatusGiftUserTest {
         .assertUserName(1, UsersLogin.SIMPLE.getUsername())
         .clickByUser(1)
         .clickWishListItem(1)
-        .switchStatusGift(1)
-        .switchStatusGiftFalse(1);
+        .switchStatusGift(1);
   }
 }

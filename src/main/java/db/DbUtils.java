@@ -4,7 +4,6 @@ import static java.sql.DriverManager.getConnection;
 
 import jakarta.inject.Singleton;
 import lombok.SneakyThrows;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.UUID;
@@ -72,39 +71,26 @@ public class DbUtils {
   }
 
   @SneakyThrows
-  public void resetGiftForUser(String login, int price, String description) {
+  public void resetGiftStatusForUser(String login, boolean status, String description) {
     try (Connection conn = getConnection(dbUrl, dbUser, dbPass)) {
       conn.setAutoCommit(false);
 
-      String deleteSql =
+      String updateSql =
             """
-            DELETE FROM gifts WHERE wish_id IN (
-                SELECT id FROM wishlists WHERE user_id IN (
+            UPDATE gifts 
+            SET is_reserved = ?
+            WHERE wish_id = (
+                SELECT id FROM wishlists 
+                WHERE user_id = (
                     SELECT id FROM users WHERE username = ?
                 )
-            )
-            """;
-      try (PreparedStatement ps = conn.prepareStatement(deleteSql)) {
-        ps.setString(1, login);
-        ps.executeUpdate();
-      }
-
-      String insertSql =
-            """
-            INSERT INTO gifts (id, name, price, wish_id)
-            VALUES (
-                ?::uuid, ?, ?,
-                (SELECT id FROM wishlists 
-                 WHERE user_id = (SELECT id FROM users WHERE username = ?) 
-                 LIMIT 1)::uuid
+                LIMIT 1
             )
             """;
 
-      try (PreparedStatement ps = conn.prepareStatement(insertSql)) {
-        ps.setObject(1, java.util.UUID.randomUUID());
-        ps.setString(2, description);
-        ps.setBigDecimal(3, new BigDecimal(price));
-        ps.setString(4, login);
+      try (PreparedStatement ps = conn.prepareStatement(updateSql)) {
+        ps.setBoolean(1, status);
+        ps.setString(2, login);
         ps.executeUpdate();
       }
 

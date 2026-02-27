@@ -59,11 +59,6 @@ public class GiftsPage extends AbsBasePage {
     return this;
   }
 
-  public GiftsPage switchStatusGiftFalse(int index) {
-    getGiftItem(index).switchStatusItemDisable();
-    return this;
-  }
-
   private Giftitem getGiftItem(int index) {
     return giftsContent.get(index).shouldBe(visible);
   }
