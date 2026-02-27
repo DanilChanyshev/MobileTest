@@ -9,7 +9,6 @@ import components.WishListItem;
 import io.appium.java_client.AppiumBy;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
-import org.openqa.selenium.By;
 
 @Singleton
 public class MyWishListPage extends AbsBasePage{
@@ -21,8 +20,8 @@ public class MyWishListPage extends AbsBasePage{
 
   private final WishListContent wishListContent = new WishListContent($(AppiumBy.id("ru.otus.wishlist:id/wishlists")));
 
-  private final SelenideElement main = $(By.id("ru.otus.wishlist:id/wishlists_loading"));
-  private final SelenideElement addWishButton = $(By.id("ru.otus.wishlist:id/add_button"));
+  private final SelenideElement main = $(AppiumBy.id("ru.otus.wishlist:id/wishlists_loading"));
+  private final SelenideElement addWishButton = $(AppiumBy.id("ru.otus.wishlist:id/add_button"));
 
   public MyWishListPage checkOpenPage() {
     main.shouldBe(visible);
@@ -59,7 +58,7 @@ public class MyWishListPage extends AbsBasePage{
   }
 
   public GiftsPage clickWishListItem(int index) {
-    getWishListItem(index).clickWishListItem();
+    getWishListItem(index).clickItem();
     return giftsPage;
   }
 

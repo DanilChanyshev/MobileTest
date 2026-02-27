@@ -21,10 +21,10 @@
         <lombok.version>1.18.42</lombok.version>
         <logback-classic>1.4.11</logback-classic>
         <checkstyle.plugin >3.3.1</checkstyle.plugin >
-        <spotbugs.version>4.8.6.0</spotbugs.version>
+        <spotbugs.version>4.9.8.2</spotbugs.version>
 
         <base.url>http://127.0.0.1:%d/</base.url>
-        <base.apk>http://wiremock:8080/wishlist.apk</base.apk>
+        <base.apk>http://wiremock:8080/</base.apk>
         <db.url>jdbc:postgresql://sql.otus.kartushin.su:5432/wishlist</db.url>
         <db.user></db.user>
         <db.password></db.password>

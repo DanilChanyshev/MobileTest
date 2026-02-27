@@ -17,7 +17,7 @@ public class DbUtils {
   private final String dbPass = System.getProperty("db.password");
 
   @SneakyThrows
-  public UUID resetWishListForUser(String login, String description) {
+  public void resetWishListForUser(String login, String description) {
     try (Connection conn = getConnection(dbUrl, dbUser, dbPass)) {
       conn.setAutoCommit(false);
 
@@ -68,26 +68,58 @@ public class DbUtils {
       }
 
       conn.commit();
-      return wishlistId;
     }
   }
 
   @SneakyThrows
-  public void resetGiftForUser(String login, UUID wishlistID, String price, String description) {
+  public void resetGiftForUser(String login, int price, String description) {
     try (Connection conn = getConnection(dbUrl, dbUser, dbPass)) {
       conn.setAutoCommit(false);
+
+      String deleteSql =
+            """
+            DELETE FROM gifts WHERE wish_id IN (
+                SELECT id FROM wishlists WHERE user_id IN (
+                    SELECT id FROM users WHERE username = ?
+                )
+            )
+            """;
+      try (PreparedStatement ps = conn.prepareStatement(deleteSql)) {
+        ps.setString(1, login);
+        ps.executeUpdate();
+      }
 
       String insertSql =
             """
             INSERT INTO gifts (id, name, price, wish_id)
-            VALUES (?::uuid, ?,  ?, ?::uuid)
+            VALUES (
+                ?::uuid, ?, ?,
+                (SELECT id FROM wishlists 
+                 WHERE user_id = (SELECT id FROM users WHERE username = ?) 
+                 LIMIT 1)::uuid
+            )
             """;
 
       try (PreparedStatement ps = conn.prepareStatement(insertSql)) {
         ps.setObject(1, java.util.UUID.randomUUID());
-        ps.setString(2, "testing");
-        ps.setBigDecimal(3, new BigDecimal(1500));
-        ps.setObject(4, wishlistID);
+        ps.setString(2, description);
+        ps.setBigDecimal(3, new BigDecimal(price));
+        ps.setString(4, login);
+        ps.executeUpdate();
+      }
+
+      String touchWishlist =
+            """
+            UPDATE wishlists 
+            SET description = ?
+            WHERE user_id = (
+                SELECT id FROM users WHERE username = ?
+            )
+            """;
+
+      try (PreparedStatement ps = conn.prepareStatement(touchWishlist)) {
+        ps.setString(1, description);
+        ps.setString(2, login);
         ps.executeUpdate();
       }
       conn.commit();

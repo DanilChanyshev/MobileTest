@@ -1,7 +1,6 @@
 package components;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.appium.SelenideAppium.$;
 
 import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumBy;
@@ -12,11 +11,11 @@ public class Giftitem extends AbsComponents<Giftitem> {
     super(root);
   }
 
-  private final SelenideElement title = $(AppiumBy.id("ru.otus.wishlist:id/title"));
-  private final SelenideElement subTitle = $(AppiumBy.id("ru.otus.wishlist:id/subtitle"));
-  private final SelenideElement price = $(AppiumBy.id("ru.otus.wishlist:id/price"));
-  private final SelenideElement editButton = $(AppiumBy.id("ru.otus.wishlist:id/edit_button"));
-  private final SelenideElement statusBut = $(AppiumBy.id("ru.otus.wishlist:id/reserved"));
+  private final SelenideElement title = root.$(AppiumBy.id("ru.otus.wishlist:id/title"));
+  private final SelenideElement subTitle = root.$(AppiumBy.id("ru.otus.wishlist:id/subtitle"));
+  private final SelenideElement price = root.$(AppiumBy.id("ru.otus.wishlist:id/price"));
+  private final SelenideElement editButton = root.$(AppiumBy.id("ru.otus.wishlist:id/edit_button"));
+  private final SelenideElement statusBut = root.$(AppiumBy.id("ru.otus.wishlist:id/reserved"));
 
   public void assertTitleEqualsTo(String value) {
     title.shouldHave(text(value));
@@ -37,18 +36,14 @@ public class Giftitem extends AbsComponents<Giftitem> {
   }
 
   public void switchStatusItemEnable() {
-    if (!isReservedEnabled()){
+    if (isToggleDisable(statusBut)){
       statusBut.click();
     }
   }
 
   public void switchStatusItemDisable() {
-    if (isReservedEnabled()){
+    if (isToggleEnabled(statusBut)){
       statusBut.click();
     }
-  }
-
-  private boolean isReservedEnabled() {
-    return "true".equals(statusBut.getAttribute("checked"));
   }
 }

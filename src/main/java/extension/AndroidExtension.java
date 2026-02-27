@@ -14,7 +14,6 @@ import org.openqa.selenium.WebDriver;
 public class AndroidExtension implements
     TestInstancePostProcessor,
     BeforeEachCallback,
-    AfterTestExecutionCallback,
     AfterEachCallback {
 
   private final Injector inject = Guice.createInjector(new AndroidDriverModule());
@@ -24,11 +23,6 @@ public class AndroidExtension implements
   public void afterEach(ExtensionContext extensionContext) throws Exception {
     WebDriver driver = WebDriverRunner.getWebDriver();
     inject.getInstance(AndroidDriverFactory.class).quit(driver);
-  }
-
-  @Override
-  public void afterTestExecution(ExtensionContext extensionContext) throws Exception {
-
   }
 
   @Override

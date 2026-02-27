@@ -7,6 +7,7 @@ import io.appium.java_client.remote.AutomationName;
 import jakarta.inject.Singleton;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
+import java.net.URI;
 
 @SuppressWarnings("unused")
 public class AndroidDriverModule extends AbstractModule {
@@ -22,7 +23,7 @@ public class AndroidDriverModule extends AbstractModule {
     UiAutomator2Options options = new UiAutomator2Options();
     options.setAutomationName(AutomationName.ANDROID_UIAUTOMATOR2);
     options.setPlatformName("Android");
-    options.setApp(System.getProperty("base.apk"));
+    options.setApp(URI.create(System.getProperty("base.apk")).resolve("wishlist.apk").toString());
     options.fullReset();
     return options;
   }

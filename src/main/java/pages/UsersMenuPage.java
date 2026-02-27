@@ -29,7 +29,7 @@ public class UsersMenuPage extends AbsBasePage {
   }
 
   public MyWishListPage clickByUser(int index) {
-    getUserItem(index).clickByUser();
+    getUserItem(index).clickItem();
     return myWishListPage;
   }
 

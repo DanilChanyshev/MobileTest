@@ -16,7 +16,7 @@ public class CreateAndEditMyGiftTest {
   private DbUtils dbUtils;
 
   @Test
-  public void createAndEditMyGiftTest() throws InterruptedException {
+  public void createAndEditMyGiftTest() {
     String newGiftTitle = "Пони";
     String newGiftSubtitle = "три белых коня";
     String newGiftPrice = "1500";

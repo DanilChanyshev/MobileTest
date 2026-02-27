@@ -5,9 +5,9 @@ import static com.codeborne.selenide.appium.SelenideAppium.$;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.appium.java_client.AppiumBy;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
-import org.openqa.selenium.By;
 
 @Singleton
 public class EditWidhListPage extends AbsBasePage {
@@ -15,10 +15,10 @@ public class EditWidhListPage extends AbsBasePage {
   @Inject
   private MyWishListPage myWishListPage;
 
-  private final SelenideElement title = $(By.id("ru.otus.wishlist:id/wishlist_edit_title"));
-  private final SelenideElement titleInputField = $(By.id("ru.otus.wishlist:id/title_input"));
-  private final SelenideElement descriptionInputField = $(By.id("ru.otus.wishlist:id/description_input"));
-  private final SelenideElement saveButton = $(By.id("ru.otus.wishlist:id/save_button"));
+  private final SelenideElement title = $(AppiumBy.id("ru.otus.wishlist:id/wishlist_edit_title"));
+  private final SelenideElement titleInputField = $(AppiumBy.id("ru.otus.wishlist:id/title_input"));
+  private final SelenideElement descriptionInputField = $(AppiumBy.id("ru.otus.wishlist:id/description_input"));
+  private final SelenideElement saveButton = $(AppiumBy.id("ru.otus.wishlist:id/save_button"));
 
   public EditWidhListPage assertEditWishListTitle(String expected) {
     title
