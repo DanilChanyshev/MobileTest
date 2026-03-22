@@ -6,6 +6,7 @@ import static com.codeborne.selenide.appium.SelenideAppium.$;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumBy;
+import io.qameta.allure.Step;
 import jakarta.inject.Inject;
 
 public class FilterUserPage extends AbsBasePage {
@@ -17,6 +18,7 @@ public class FilterUserPage extends AbsBasePage {
   private final SelenideElement inputFieldName = $(AppiumBy.id("ru.otus.wishlist:id/username_input"));
   private final SelenideElement okButton = $(AppiumBy.id("ru.otus.wishlist:id/apply_button"));
 
+  @Step("Проверить, что название страницы 'Фильтр'")
   public FilterUserPage assertTitle() {
     title
         .shouldBe(visible)
@@ -24,6 +26,7 @@ public class FilterUserPage extends AbsBasePage {
     return this;
   }
 
+  @Step("Ввести имя пользователя в фильтр")
   public UsersMenuPage sendUserByName(String name) {
     inputFieldName
         .shouldBe(visible)

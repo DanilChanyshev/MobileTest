@@ -1,6 +1,7 @@
 import db.DbUtils;
 import extension.AndroidExtension;
 import jakarta.inject.Inject;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.LoginPage;
@@ -15,6 +16,7 @@ public class CreateAndEditWishListTest {
   private DbUtils dbUtils;
 
   @Test
+  @DisplayName("Mobile. Создание нового вишлиста")
   public void createWishListTest() {
     dbUtils.resetWishListForUser(UsersLogin.DOSHICK.getUsername(), "testingData");
     loginPage
@@ -27,6 +29,7 @@ public class CreateAndEditWishListTest {
   }
 
   @Test
+  @DisplayName("Mobile. Редактирование вишлиста")
   public void editWishListTest() {
     final String editTitle = "Ждем следующий год";
     final String editDescription = "остлалось 300 дней";

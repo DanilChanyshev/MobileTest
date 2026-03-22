@@ -7,6 +7,7 @@ import com.codeborne.selenide.SelenideElement;
 import components.WishListContent;
 import components.WishListItem;
 import io.appium.java_client.AppiumBy;
+import io.qameta.allure.Step;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
@@ -23,11 +24,13 @@ public class MyWishListPage extends AbsBasePage{
   private final SelenideElement main = $(AppiumBy.id("ru.otus.wishlist:id/wishlists_loading"));
   private final SelenideElement addWishButton = $(AppiumBy.id("ru.otus.wishlist:id/add_button"));
 
+  @Step("Проверить что страница открылась")
   public MyWishListPage checkOpenPage() {
     main.shouldBe(visible);
     return this;
   }
 
+  @Step("Проверить количество записей")
   public MyWishListPage assertNumberOfWishLists(int value){
     wishListContent
         .shouldBe(visible)
@@ -35,6 +38,7 @@ public class MyWishListPage extends AbsBasePage{
     return this;
   }
 
+  @Step("Нажать на кнопку 'Добавить'")
   public EditWidhListPage clickAddButton(){
     addWishButton
         .shouldBe(visible)
@@ -42,21 +46,24 @@ public class MyWishListPage extends AbsBasePage{
     return editWidhListPage;
   }
 
+  @Step("Проверить название вишлиста")
   public MyWishListPage assertWishListTitle(int index, String expectedTitle) {
     getWishListItem(index).assertTitleEqualsTo(expectedTitle);
     return this;
   }
-
+  @Step("Проверить описание вишлиста")
   public MyWishListPage assertWishListSubtitle(int index, String expectedSubtitle) {
     getWishListItem(index).assertSubtitleEqualsTo(expectedSubtitle);
     return this;
   }
 
+  @Step("Нажать на кнопку 'Редактировать'")
   public EditWidhListPage clickEditButton(int index) {
     getWishListItem(index).clickEdit();
     return editWidhListPage;
   }
 
+  @Step("Кликнуть по строке Вишлиста")
   public GiftsPage clickWishListItem(int index) {
     getWishListItem(index).clickItem();
     return giftsPage;

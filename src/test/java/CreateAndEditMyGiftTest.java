@@ -2,6 +2,7 @@
 import db.DbUtils;
 import extension.AndroidExtension;
 import jakarta.inject.Inject;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.LoginPage;
@@ -15,6 +16,7 @@ public class CreateAndEditMyGiftTest {
   @Inject
   private DbUtils dbUtils;
 
+  @DisplayName("Mobile. Создание и редактирование мои подарков")
   @Test
   public void createAndEditMyGiftTest() {
     String newGiftTitle = "Пони";

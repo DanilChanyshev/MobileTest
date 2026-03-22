@@ -6,6 +6,7 @@ import static com.codeborne.selenide.appium.SelenideAppium.$;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumBy;
+import io.qameta.allure.Step;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
@@ -21,6 +22,7 @@ public class EditGiftPage extends AbsBasePage {
   private final SelenideElement inputDescriptionField = $(AppiumBy.id("ru.otus.wishlist:id/description_input"));
   private final SelenideElement saveButton = $(AppiumBy.id("ru.otus.wishlist:id/save_button"));
 
+  @Step("Проверить название подарка")
   public EditGiftPage assertEditGiftTitle(String expectedTitle) {
     title
         .shouldBe(visible)
@@ -28,6 +30,7 @@ public class EditGiftPage extends AbsBasePage {
     return this;
   }
 
+  @Step("Заполнить информацию о подарке")
   public GiftsPage fieldGiftInformation(String nameGift, String price, String description) {
     inputNameField
         .shouldBe(visible)

@@ -1,6 +1,7 @@
 import db.DbUtils;
 import extension.AndroidExtension;
 import jakarta.inject.Inject;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.LoginPage;
@@ -15,6 +16,7 @@ public class EditStatusGiftUserTest {
   private DbUtils dbUtils;
 
   @Test
+  @DisplayName("Mobile. Редактирование статуса подарка")
   public void editStatusGiftTest() {
     dbUtils.resetGiftStatusForUser(UsersLogin.SIMPLE.getUsername(), false, "testingData");
     loginPage

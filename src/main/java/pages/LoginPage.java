@@ -4,6 +4,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.appium.SelenideAppium.$;
 import static io.appium.java_client.AppiumBy.id;
 
+import io.qameta.allure.Step;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import com.codeborne.selenide.SelenideElement;
@@ -18,6 +19,7 @@ public class LoginPage extends AbsBasePage {
   private final SelenideElement passwordInputField = $(id("ru.otus.wishlist:id/password_text_input"));
   private final SelenideElement buttonLogin = $(id("ru.otus.wishlist:id/log_in_button"));
 
+  @Step("Авторизоваться под пользователем")
   public MyWishListPage login(String userName, String password) {
     userNameInputField
         .shouldBe(visible)

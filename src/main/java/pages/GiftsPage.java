@@ -7,6 +7,7 @@ import com.codeborne.selenide.SelenideElement;
 import components.Giftitem;
 import components.GiftsContent;
 import io.appium.java_client.AppiumBy;
+import io.qameta.allure.Step;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
@@ -20,6 +21,7 @@ public class GiftsPage extends AbsBasePage {
 
   private final SelenideElement addButton = $(AppiumBy.id("ru.otus.wishlist:id/add_button"));
 
+  @Step("Нажать на кнопку 'добавить подарок'")
   public EditGiftPage clickAddButton() {
     addButton
         .shouldBe(visible)
@@ -27,6 +29,7 @@ public class GiftsPage extends AbsBasePage {
     return editGiftPage;
   }
 
+  @Step("Проверить количество подарок")
   public GiftsPage assertNumberOfGifts(int value){
     giftsContent
         .shouldBe(visible)
@@ -34,26 +37,31 @@ public class GiftsPage extends AbsBasePage {
     return this;
   }
 
+  @Step("Проверить название подарка")
   public GiftsPage assertGiftTitle(int index, String expectedTitle) {
     getGiftItem(index).assertTitleEqualsTo(expectedTitle);
     return this;
   }
 
+  @Step("Проверить описание подарка")
   public GiftsPage assertGiftSubtitle(int index, String expectedSubtitle) {
     getGiftItem(index).assertSubtitleEqualsTo(expectedSubtitle);
     return this;
   }
 
+  @Step("Проверить цену подарка")
   public GiftsPage assertGiftPrice(int index, String expectedPrice) {
     getGiftItem(index).assertPriceEqualsTo(expectedPrice);
     return this;
   }
 
+  @Step("Нажать на кнопку 'редактировать'")
   public EditGiftPage clickEditButton(int index) {
     getGiftItem(index).clickEdit();
     return editGiftPage;
   }
 
+  @Step("Переключить статус подарка")
   public GiftsPage switchStatusGift(int index) {
     getGiftItem(index).switchStatusItemEnable();
     return this;

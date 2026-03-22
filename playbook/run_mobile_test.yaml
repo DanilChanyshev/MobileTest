@@ -1,0 +1,6 @@
+- name: Run mobile tests
+  hosts: mobile
+  become: false
+  remote_user: root
+  roles:
+    - run_test
