@@ -7,8 +7,8 @@ node('maven') {
     }
 
     stage('Start emulator') {
-        steps {
-            dir("${env.WORKSPACE}") {
+        dir("${env.WORKSPACE}") {
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                 sh '''
                 docker compose up -d
                 sleep 60
