@@ -7,8 +7,13 @@ node('maven') {
     }
 
     stage('Start emulator') {
-        dir("${env.WORKSPACE}") {
-            sh "docker-compose up -d"
+        steps {
+            dir("${env.WORKSPACE}") {
+                sh '''
+                docker compose up -d
+                sleep 60
+            '''
+            }
         }
     }
 }
