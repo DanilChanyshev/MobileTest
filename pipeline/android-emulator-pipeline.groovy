@@ -1,4 +1,4 @@
-node('maven') {
+node('android-emulator') {
 
     currentBuild.description = "<p style='color: blue;'>Android emulator</p>"
 
