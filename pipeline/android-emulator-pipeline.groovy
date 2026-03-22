@@ -10,7 +10,7 @@ node('android-emulator') {
         dir("${env.WORKSPACE}") {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                 sh '''
-                docker compose up -d
+                docker-compose up -d
                 sleep 60
             '''
             }
