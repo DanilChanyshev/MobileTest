@@ -1,4 +1,4 @@
-node('android-emulator') {
+node('android') {
 
     currentBuild.description = "<p style='color: blue;'>Android emulator</p>"
 
